@@ -1,0 +1,173 @@
+@import "tailwindcss";
+
+@theme {
+  --color-jdm-bg: #050505;
+  --color-jdm-surface: #111111;
+  --color-jdm-surface-light: #1a1a1a;
+
+  --color-jdm-cyan: #00f0ff;
+  --color-jdm-pink: #ef008f;
+  --color-jdm-purple: #9d00ff;
+  --color-jdm-green: #39ff14;
+
+  --font-sans: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  --font-mono: "Space Grotesk", "Fira Code", monospace;
+  --font-heading: "Orbitron", "Inter", sans-serif;
+
+  /* Smooth techy animations */
+  --ease-fluid: cubic-bezier(0.3, 0, 0, 1);
+  --ease-bounce: cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+@layer base {
+  :root {
+    color-scheme: dark;
+  }
+
+  body {
+    background-color: var(--color-jdm-bg);
+    color: #f1f5f9;
+    /* Slate 100 */
+    font-family: var(--font-sans);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    overflow-x: hidden;
+    cursor: none;
+    /* Hide default cursor for custom cursor */
+  }
+
+  /* Safe bubble backgrounds for cards */
+  .jdm-bubble {
+    background-color: rgba(0, 0, 0, 0.4);
+  }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    font-family: var(--font-heading);
+    letter-spacing: 0.05em;
+  }
+}
+
+@layer utilities {
+
+  /* Neon text glows */
+  .text-glow-cyan {
+    text-shadow: 0 0 10px rgba(0, 240, 255, 0.5), 0 0 20px rgba(0, 240, 255, 0.3);
+  }
+
+  .text-glow-pink {
+    text-shadow: 0 0 10px rgba(239, 0, 143, 0.5), 0 0 20px rgba(239, 0, 143, 0.3);
+  }
+
+  /* Neon box shadows for cards/buttons (Continuous Breathing Animation) */
+  .shadow-neon-cyan {
+    animation: breathe-cyan 4s ease-in-out infinite;
+  }
+
+  .shadow-neon-pink {
+    animation: breathe-pink 4s ease-in-out infinite;
+  }
+
+  .shadow-neon-purple {
+    animation: breathe-purple 4s ease-in-out infinite;
+  }
+
+  .shadow-neon-green {
+    animation: breathe-green 4s ease-in-out infinite;
+  }
+
+  @keyframes breathe-cyan {
+
+    0%,
+    100% {
+      box-shadow: 0 0 15px color-mix(in srgb, var(--color-jdm-cyan) 30%, transparent), inset 0 0 10px color-mix(in srgb, var(--color-jdm-cyan) 15%, transparent);
+    }
+
+    50% {
+      box-shadow: 0 0 35px color-mix(in srgb, var(--color-jdm-cyan) 60%, transparent), inset 0 0 15px color-mix(in srgb, var(--color-jdm-cyan) 30%, transparent);
+    }
+  }
+
+  @keyframes breathe-pink {
+
+    0%,
+    100% {
+      box-shadow: 0 0 15px color-mix(in srgb, var(--color-jdm-pink) 30%, transparent), inset 0 0 10px color-mix(in srgb, var(--color-jdm-pink) 15%, transparent);
+    }
+
+    50% {
+      box-shadow: 0 0 35px color-mix(in srgb, var(--color-jdm-pink) 60%, transparent), inset 0 0 15px color-mix(in srgb, var(--color-jdm-pink) 30%, transparent);
+    }
+  }
+
+  @keyframes breathe-purple {
+
+    0%,
+    100% {
+      box-shadow: 0 0 15px color-mix(in srgb, var(--color-jdm-purple) 30%, transparent), inset 0 0 10px color-mix(in srgb, var(--color-jdm-purple) 15%, transparent);
+    }
+
+    50% {
+      box-shadow: 0 0 35px color-mix(in srgb, var(--color-jdm-purple) 60%, transparent), inset 0 0 15px color-mix(in srgb, var(--color-jdm-purple) 30%, transparent);
+    }
+  }
+
+  @keyframes breathe-green {
+
+    0%,
+    100% {
+      box-shadow: 0 0 15px color-mix(in srgb, var(--color-jdm-green) 30%, transparent), inset 0 0 10px color-mix(in srgb, var(--color-jdm-green) 15%, transparent);
+    }
+
+    50% {
+      box-shadow: 0 0 35px color-mix(in srgb, var(--color-jdm-green) 60%, transparent), inset 0 0 15px color-mix(in srgb, var(--color-jdm-green) 30%, transparent);
+    }
+  }
+
+  /* Glassmorphism Surface */
+  .glass-surface {
+    background: rgba(17, 17, 17, 0.7);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+  }
+
+  .glass-surface-light {
+    background: rgba(26, 26, 26, 0.7);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+  }
+
+  /* Subtle border glow */
+  .border-glow-cyan {
+    border-color: rgba(0, 240, 255, 0.3);
+  }
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+/* Ensure links and buttons have correct cursor behavior since default is hidden */
+a,
+button,
+input,
+textarea {
+  cursor: none;
+}
+
+/* Custom Cursor handling */
+.cursor-ring {
+  mix-blend-mode: difference;
+}
+
+.cursor-ring-hover {
+  backdrop-filter: invert(100%);
+  -webkit-backdrop-filter: invert(100%);
+  background-color: transparent !important;
+}
