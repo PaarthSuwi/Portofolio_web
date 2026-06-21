@@ -1,66 +1,132 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect } from 'react';
 
 const navLinks = [
-  { label: 'About', href: '#about' },
-  { label: 'Skills', href: '#skills' },
-  { label: 'Experience', href: '#experience' },
-  { label: 'Projects', href: '#projects' },
-  { label: 'Education', href: '#education' },
-  { label: 'Contact', href: '#contact' },
-]
+  { id: 'about', label: 'About' },
+  { id: 'skills', label: 'Skills' },
+  { id: 'experience', label: 'Experience' },
+  { id: 'projects', label: 'Projects' },
+  { id: 'education', label: 'Education' },
+  { id: 'contact', label: 'Contact' },
+];
 
 export default function Navbar() {
-  const [scrolled, setScrolled] = useState(false)
-  const [menuOpen, setMenuOpen] = useState(false)
-  const [active, setActive] = useState('')
+  const [scrolled, setScrolled] = useState(false);
+  const [activeSection, setActiveSection] = useState('');
+  const [menuOpen, setMenuOpen] = useState(false);
 
   useEffect(() => {
     const onScroll = () => {
-      setScrolled(window.scrollY > 50)
-      const secs = navLinks.map(l => l.href.slice(1))
-      for (let i = secs.length - 1; i >= 0; i--) {
-        const el = document.getElementById(secs[i])
-        if (el && window.scrollY >= el.offsetTop - 120) { setActive(secs[i]); break }
-      }
-    }
-    window.addEventListener('scroll', onScroll)
-    return () => window.removeEventListener('scroll', onScroll)
-  }, [])
+      setScrolled(window.scrollY > 40);
+      const sections = navLinks.map(l => document.getElementById(l.id)).filter(Boolean);
+      const current = sections.reverse().find(s => s.getBoundingClientRect().top <= 120);
+      setActiveSection(current ? current.id : '');
+    };
+    window.addEventListener('scroll', onScroll, { passive: true });
+    return () => window.removeEventListener('scroll', onScroll);
+  }, []);
 
-  const go = (e, href) => {
-    e.preventDefault(); setMenuOpen(false)
-    document.querySelector(href)?.scrollIntoView({ behavior: 'smooth' })
-  }
-
-  const nav = {
-    position: 'fixed', top: 0, left: 0, right: 0, zIndex: 1000,
-    padding: '1rem 2rem', display: 'flex', alignItems: 'center', justifyContent: 'space-between',
-    background: scrolled ? 'rgba(10,10,15,0.93)' : 'transparent',
-    backdropFilter: scrolled ? 'blur(16px)' : 'none',
-    borderBottom: scrolled ? '1px solid rgba(108,99,255,0.15)' : '1px solid transparent',
-    transition: 'all 0.3s ease',
-  }
+  const scrollTo = (id) => {
+    document.getElementById(id)?.scrollIntoView({ behavior: 'smooth' });
+    setMenuOpen(false);
+  };
 
   return (
-    <>
-      <nav style={nav}>
-        <a href='#hero' onClick={e => go(e, '#hero')} style={{ fontWeight: 800, fontSize: '1.3rem', background: 'linear-gradient(90deg,#6c63ff,#00d4aa)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', textDecoration: 'none' }}>PS</a>
-        <ul style={{ display: 'flex', gap: '2rem', listStyle: 'none', margin: 0 }} className='nav-desktop'>
-          {navLinks.map(l => (
-            <li key={l.href}>
-              <a href={l.href} onClick={e => go(e, l.href)} style={{ color: active === l.href.slice(1) ? '#6c63ff' : '#9999bb', textDecoration: 'none', fontSize: '0.9rem', fontWeight: 500, transition: 'color 0.2s', borderBottom: active === l.href.slice(1) ? '2px solid #6c63ff' : '2px solid transparent', paddingBottom: '2px' }}>{l.label}</a>
+    <header style={{
+      position: 'fixed', top: 0, left: 0, right: 0, zIndex: 100,
+      background: scrolled ? 'rgba(13,17,23,0.92)' : 'transparent',
+      backdropFilter: scrolled ? 'blur(12px)' : 'none',
+      borderBottom: scrolled ? '1px solid #30363D' : '1px solid transparent',
+      transition: 'all 0.3s ease',
+    }}>
+      <nav style={{ maxWidth: '1100px', margin: '0 auto', padding: '0 2rem', height: '60px', display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+        {/* Logo */}
+        <button onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })} style={{ background: 'none', border: 'none', cursor: 'pointer', padding: 0 }}>
+          <span style={{ fontFamily: 'Space Grotesk, sans-serif', fontWeight: 700, fontSize: '1.1rem', color: '#E6EDF3', letterSpacing: '-0.01em' }}>
+            PS
+            <span style={{ color: '#4FD1FF', marginLeft: '2px' }}>.</span>
+          </span>
+        </button>
+
+        {/* Desktop Links */}
+        <ul style={{ display: 'flex', alignItems: 'center', gap: '0.25rem', listStyle: 'none', margin: 0, padding: 0 }} className='nav-desktop'>
+          {navLinks.map(link => (
+            <li key={link.id}>
+              <button
+                onClick={() => scrollTo(link.id)}
+                style={{
+                  background: 'none', border: 'none', cursor: 'pointer',
+                  fontFamily: 'Inter, sans-serif', fontSize: '0.875rem', fontWeight: activeSection === link.id ? 500 : 400,
+                  color: activeSection === link.id ? '#4FD1FF' : '#8B949E',
+                  padding: '0.375rem 0.75rem', borderRadius: '5px',
+                  transition: 'color 0.2s ease',
+                  position: 'relative',
+                }}
+              >
+                {link.label}
+                {activeSection === link.id && (
+                  <span style={{ position: 'absolute', bottom: 0, left: '50%', transform: 'translateX(-50%)', width: '16px', height: '1.5px', background: '#4FD1FF', borderRadius: '2px', display: 'block' }} />
+                )}
+              </button>
             </li>
           ))}
         </ul>
-        <a href='https://linkedin.com/in/paarth-srivastava' target='_blank' rel='noreferrer' className='nav-cta' style={{ padding: '0.45rem 1.1rem', background: 'linear-gradient(135deg,#6c63ff,#00d4aa)', color: 'white', borderRadius: '8px', textDecoration: 'none', fontSize: '0.85rem', fontWeight: 600 }}>Connect</a>
-        <button onClick={() => setMenuOpen(m => !m)} className='nav-ham' style={{ display: 'none', background: 'none', border: 'none', color: '#f0f0f8', fontSize: '1.5rem', cursor: 'pointer' }}>{menuOpen ? 'X' : '='}</button>
+
+        {/* CTA */}
+        <button
+          onClick={() => scrollTo('contact')}
+          className='nav-desktop'
+          style={{
+            background: 'transparent', border: '1px solid #30363D', color: '#E6EDF3',
+            fontFamily: 'Inter, sans-serif', fontSize: '0.8rem', fontWeight: 500,
+            padding: '0.4rem 1rem', borderRadius: '6px', cursor: 'pointer',
+            transition: 'border-color 0.2s ease, color 0.2s ease',
+          }}
+          onMouseEnter={e => { e.target.style.borderColor = '#4FD1FF'; e.target.style.color = '#4FD1FF'; }}
+          onMouseLeave={e => { e.target.style.borderColor = '#30363D'; e.target.style.color = '#E6EDF3'; }}
+        >
+          Connect
+        </button>
+
+        {/* Mobile Hamburger */}
+        <button
+          onClick={() => setMenuOpen(!menuOpen)}
+          className='nav-mobile'
+          style={{ background: 'none', border: 'none', cursor: 'pointer', padding: '0.5rem', display: 'none' }}
+        >
+          <svg width='22' height='22' viewBox='0 0 22 22' fill='none'>
+            {menuOpen
+              ? <path d='M4 4L18 18M18 4L4 18' stroke='#E6EDF3' strokeWidth='1.8' strokeLinecap='round'/>
+              : (<>
+                  <line x1='3' y1='6' x2='19' y2='6' stroke='#E6EDF3' strokeWidth='1.8' strokeLinecap='round'/>
+                  <line x1='3' y1='11' x2='19' y2='11' stroke='#E6EDF3' strokeWidth='1.8' strokeLinecap='round'/>
+                  <line x1='3' y1='16' x2='19' y2='16' stroke='#E6EDF3' strokeWidth='1.8' strokeLinecap='round'/>
+                </>)}
+          </svg>
+        </button>
       </nav>
+
+      {/* Mobile Menu */}
       {menuOpen && (
-        <div style={{ position: 'fixed', top: 64, left: 0, right: 0, zIndex: 999, background: 'rgba(10,10,15,0.97)', backdropFilter: 'blur(16px)', padding: '1.5rem 2rem', borderBottom: '1px solid rgba(108,99,255,0.15)' }}>
-          {navLinks.map(l => <a key={l.href} href={l.href} onClick={e => go(e, l.href)} style={{ display: 'block', padding: '0.8rem 0', color: '#9999bb', textDecoration: 'none', borderBottom: '1px solid rgba(255,255,255,0.05)' }}>{l.label}</a>)}
+        <div style={{ background: '#161B22', borderTop: '1px solid #30363D', padding: '1rem 2rem 1.5rem' }}>
+          {navLinks.map(link => (
+            <button key={link.id} onClick={() => scrollTo(link.id)} style={{
+              display: 'block', width: '100%', textAlign: 'left', background: 'none', border: 'none', cursor: 'pointer',
+              fontFamily: 'Inter, sans-serif', fontSize: '0.9rem', fontWeight: activeSection === link.id ? 500 : 400,
+              color: activeSection === link.id ? '#4FD1FF' : '#8B949E', padding: '0.6rem 0',
+              borderBottom: '1px solid #21262D',
+            }}>
+              {link.label}
+            </button>
+          ))}
         </div>
       )}
-      <style>{`@media(max-width:768px){.nav-desktop{display:none!important}.nav-cta{display:none!important}.nav-ham{display:block!important}}`}</style>
-    </>
-  )
+
+      <style>{`
+        @media (max-width: 640px) {
+          .nav-desktop { display: none !important; }
+          .nav-mobile { display: flex !important; }
+        }
+      `}</style>
+    </header>
+  );
 }
