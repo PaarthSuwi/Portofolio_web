@@ -1,4 +1,3 @@
-import { useEffect, useRef, useState } from 'react'
 import './App.css'
 import Hero from './components/sections/Hero'
 import About from './components/sections/About'
@@ -10,18 +9,18 @@ import Contact from './components/sections/Contact'
 import Navbar from './components/layout/Navbar'
 
 export default function App() {
-    return (
-          <div className="app-root">
-                <Navbar />
-                <main>
-                        <Hero />
-                        <About />
-                        <Skills />
-                        <Experience />
-                        <Projects />
-                        <Education />
-                        <Contact />
-                </main>main>
-          </div>div>
-        )
-}</div>
+  return (
+    <div className="app-root">
+      <Navbar />
+      <main>
+        <Hero />
+        <About />
+        <Skills />
+        <Experience />
+        <Projects />
+        <Education />
+        <Contact />
+      </main>
+    </div>
+  )
+}
