@@ -1,65 +1,102 @@
+import { useRef, useEffect, useState } from 'react';
+
+function useInView(threshold = 0.1) {
+  const ref = useRef(null);
+  const [inView, setInView] = useState(false);
+  useEffect(() => {
+    const obs = new IntersectionObserver(([e]) => { if (e.isIntersecting) { setInView(true); obs.disconnect(); } }, { threshold });
+    if (ref.current) obs.observe(ref.current);
+    return () => obs.disconnect();
+  }, [threshold]);
+  return [ref, inView];
+}
+
 const skillGroups = [
   {
-    title: 'Robotics & Control',
-    color: '#6c63ff',
-    skills: ['ROS2', 'Inverse Kinematics', 'Path Planning', 'PID Control', 'HRI', 'FANUC Robots', 'MELFA SCARA'],
+    category: 'Robotics & Automation',
+    color: '#4FD1FF',
+    skills: ['ROS2', 'FANUC Robotics', 'MELFA', 'Industrial Automation', 'PLC Programming', 'Workcell Integration'],
   },
   {
-    title: 'AI, Agents & CV',
-    color: '#00d4aa',
-    skills: ['LLM Agents', 'OpenCV', 'MediaPipe', 'Gesture Recognition', 'Pose Estimation', 'OCR', 'Graph Analysis'],
+    category: 'Computer Vision',
+    color: '#FF8A3D',
+    skills: ['OpenCV', 'MediaPipe', 'Gesture Recognition', 'Real-time Detection', 'Depth Sensing', 'Image Processing'],
   },
   {
-    title: 'Simulation & Digital Twins',
-    color: '#ff6b9d',
-    skills: ['MATLAB', 'Simulink', 'Simscape', 'Visual Components', 'FEA', 'CFD', 'Simufact'],
+    category: 'Programming',
+    color: '#3FB950',
+    skills: ['Python', 'C++', 'C', 'MATLAB', 'JavaScript', 'Shell Scripting'],
   },
   {
-    title: 'Software & Tools',
-    color: '#ffa94d',
-    skills: ['Python', 'C/C++', 'React', 'HTML/CSS', 'Git', 'Vite', 'VS Code'],
+    category: 'AI & LLM',
+    color: '#8B949E',
+    skills: ['LLM Agents', 'Tool-use Systems', 'CrewAI', 'LangChain', 'Prompt Engineering', 'Autonomous Agents'],
   },
   {
-    title: 'CAD & Design',
-    color: '#74c0fc',
-    skills: ['SolidWorks', 'Autodesk Fusion 360', 'CAD Modeling', '3D Printing', 'Figma UI/UX'],
+    category: 'Simulation & CAD',
+    color: '#4FD1FF',
+    skills: ['Simulink', 'Gazebo', 'SolidWorks', 'Fusion 360', 'Digital Twins', 'ADAMS'],
   },
   {
-    title: 'Certifications',
-    color: '#69db7c',
-    skills: ['Autodesk Fusion 360 Certified', 'SolidWorks Complete Design', 'Figma UI/UX Design', 'Mastering DSA in C/C++'],
+    category: 'Tools & Platforms',
+    color: '#FF8A3D',
+    skills: ['Git', 'Linux', 'Docker', 'VS Code', 'Figma', 'Vercel'],
   },
-]
+];
+
+const certifications = [
+  { name: 'Autodesk Fusion 360', issuer: 'Autodesk' },
+  { name: 'SolidWorks CSWA', issuer: 'Dassault Systems' },
+  { name: 'Figma UI/UX Design', issuer: 'Figma' },
+  { name: 'DSA in C/C++', issuer: 'Coding Ninjas' },
+];
 
 export default function Skills() {
+  const [ref, inView] = useInView();
+
   return (
-    <section id="skills">
-      <div className="section-container">
-        <h2 className="section-title">Technical <span>Skills</span></h2>
-        <p className="section-subtitle">Technologies, tools, and domains I work with</p>
-        <div className="section-divider" />
+    <section id='skills' style={{ background: '#161B22', padding: '5rem 0', borderTop: '1px solid #21262D' }}>
+      <div className='container' ref={ref}>
+        {/* Header */}
+        <div style={{
+          opacity: inView ? 1 : 0, transform: inView ? 'none' : 'translateY(20px)',
+          transition: 'opacity 0.6s ease, transform 0.6s ease',
+          marginBottom: '3rem',
+        }}>
+          <div className='section-label'>Skills</div>
+          <h2 className='section-title'>Technical Stack</h2>
+          <p style={{ color: '#8B949E', fontSize: '1rem', maxWidth: '480px' }}>
+            Tools, languages, and frameworks I use to build intelligent robotic systems.
+          </p>
+        </div>
 
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: '1.5rem' }}>
-          {skillGroups.map(group => (
-            <div key={group.title} style={{ background: 'var(--bg-card)', borderRadius: '16px', padding: '1.5rem', border: '1px solid var(--border)', transition: 'border-color 0.2s, transform 0.2s' }}
-              onMouseEnter={e => { e.currentTarget.style.borderColor = group.color + '55'; e.currentTarget.style.transform = 'translateY(-3px)' }}
-              onMouseLeave={e => { e.currentTarget.style.borderColor = 'var(--border)'; e.currentTarget.style.transform = 'none' }}>
-              
-              <div style={{ display: 'flex', alignItems: 'center', gap: '0.6rem', marginBottom: '1.2rem' }}>
-                <div style={{ width: '4px', height: '20px', background: group.color, borderRadius: '2px' }} />
-                <h3 style={{ fontSize: '1rem', fontWeight: 700, color: '#f0f0f8' }}>{group.title}</h3>
+        {/* Skill groups */}
+        <div style={{
+          display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '1px',
+          background: '#30363D', border: '1px solid #30363D', borderRadius: '8px', overflow: 'hidden',
+          marginBottom: '3rem',
+        }}>
+          {skillGroups.map((group, gi) => (
+            <div key={gi} style={{
+              background: '#161B22', padding: '1.5rem',
+              opacity: inView ? 1 : 0, transform: inView ? 'none' : 'translateY(15px)',
+              transition: 'opacity 0.5s ease ' + (0.1 + gi * 0.07) + 's, transform 0.5s ease ' + (0.1 + gi * 0.07) + 's, background 0.2s ease',
+            }}
+            onMouseEnter={e => e.currentTarget.style.background = '#1C2128'}
+            onMouseLeave={e => e.currentTarget.style.background = '#161B22'}
+            >
+              <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', marginBottom: '1rem' }}>
+                <span style={{ width: '8px', height: '8px', borderRadius: '50%', background: group.color, display: 'inline-block', flexShrink: 0 }} />
+                <span style={{ fontFamily: 'Space Grotesk, sans-serif', fontSize: '0.85rem', fontWeight: 600, color: '#E6EDF3' }}>{group.category}</span>
               </div>
-
-              <div style={{ display: 'flex', flexWrap: 'wrap', gap: '0.5rem' }}>
+              <div style={{ display: 'flex', flexWrap: 'wrap', gap: '0.4rem' }}>
                 {group.skills.map(skill => (
                   <span key={skill} style={{
-                    padding: '0.3rem 0.8rem',
-                    background: group.color + '15',
-                    border: `1px solid ${group.color}33`,
-                    borderRadius: '6px',
-                    color: group.color,
-                    fontSize: '0.8rem',
-                    fontWeight: 500,
+                    fontFamily: 'JetBrains Mono, monospace', fontSize: '0.7rem',
+                    padding: '0.2rem 0.55rem', borderRadius: '3px',
+                    background: '#0D1117', border: '1px solid #30363D',
+                    color: '#8B949E',
+                    transition: 'color 0.2s ease, border-color 0.2s ease',
                   }}>
                     {skill}
                   </span>
@@ -69,18 +106,38 @@ export default function Skills() {
           ))}
         </div>
 
-        {/* Technical Interests */}
-        <div style={{ marginTop: '3rem', padding: '2rem', background: 'linear-gradient(135deg, rgba(108,99,255,0.08), rgba(0,212,170,0.08))', borderRadius: '16px', border: '1px solid rgba(108,99,255,0.2)' }}>
-          <h3 style={{ textAlign: 'center', fontSize: '1.1rem', fontWeight: 700, color: '#f0f0f8', marginBottom: '1rem' }}>Technical Interests</h3>
-          <div style={{ display: 'flex', flexWrap: 'wrap', gap: '0.6rem', justifyContent: 'center' }}>
-            {['Industrial Robotics', 'Robotics Software', 'Computer Vision', 'Simulation Systems', 'Digital Twins', 'Engineering Automation', 'Autonomous Systems', 'Human-Robot Interaction'].map(interest => (
-              <span key={interest} style={{ padding: '0.4rem 1rem', background: 'rgba(108,99,255,0.1)', border: '1px solid rgba(108,99,255,0.25)', borderRadius: '20px', color: '#9999bb', fontSize: '0.85rem' }}>
-                {interest}
-              </span>
+        {/* Certifications */}
+        <div style={{
+          opacity: inView ? 1 : 0, transition: 'opacity 0.6s ease 0.4s',
+        }}>
+          <h3 style={{
+            fontFamily: 'Space Grotesk, sans-serif', fontSize: '0.8rem', fontWeight: 500,
+            color: '#484F58', letterSpacing: '0.1em', textTransform: 'uppercase',
+            marginBottom: '1rem',
+          }}>Certifications</h3>
+          <div style={{ display: 'flex', flexWrap: 'wrap', gap: '0.75rem' }}>
+            {certifications.map((cert, i) => (
+              <div key={i} style={{
+                display: 'flex', alignItems: 'center', gap: '0.6rem',
+                background: '#0D1117', border: '1px solid #30363D', borderRadius: '6px',
+                padding: '0.5rem 0.875rem',
+              }}>
+                <span style={{ color: '#3FB950', fontSize: '0.75rem' }}>&#10003;</span>
+                <div>
+                  <div style={{ fontFamily: 'Inter, sans-serif', fontSize: '0.8rem', color: '#E6EDF3', fontWeight: 500 }}>{cert.name}</div>
+                  <div style={{ fontFamily: 'JetBrains Mono, monospace', fontSize: '0.68rem', color: '#484F58' }}>{cert.issuer}</div>
+                </div>
+              </div>
             ))}
           </div>
         </div>
       </div>
+
+      <style>{`
+        @media (max-width: 768px) {
+          #skills .container > div:nth-child(2) { grid-template-columns: 1fr !important; }
+        }
+      `}</style>
     </section>
-  )
+  );
 }
