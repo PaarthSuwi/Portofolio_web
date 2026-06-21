@@ -1,97 +1,66 @@
-import React, { useState, useEffect } from 'react';
-import { motion } from 'framer-motion';
-import { Menu, X } from 'lucide-react';
-import { HashLink } from 'react-router-hash-link';
+import { useState, useEffect } from 'react'
 
 const navLinks = [
-    { name: 'About', href: '#about', color: 'hover:text-[var(--color-jdm-cyan)]' },
-    { name: 'Experience', href: '#experience', color: 'hover:text-[var(--color-jdm-green)]' },
-    { name: 'Services', href: '#services', color: 'hover:text-[var(--color-jdm-pink)]' },
-    { name: 'Portfolio', href: '#portfolio', color: 'hover:text-[var(--color-jdm-purple)]' },
-    { name: 'Pricing', href: '#pricing', color: 'hover:text-[var(--color-jdm-cyan)]' },
-    { name: 'Connect', href: '#contact', color: 'hover:text-[var(--color-jdm-green)]' },
-];
+    { label: 'About', href: '#about' },
+    { label: 'Skills', href: '#skills' },
+    { label: 'Experience', href: '#experience' },
+    { label: 'Projects', href: '#projects' },
+    { label: 'Education', href: '#education' },
+    { label: 'Contact', href: '#contact' },
+    ]
 
-const Navbar = () => {
-    const [isScrolled, setIsScrolled] = useState(false);
-    const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+export default function Navbar() {
+      const [scrolled, setScrolled] = useState(false)
+      const [menuOpen, setMenuOpen] = useState(false)
+      const [active, setActive] = useState('')
 
-    useEffect(() => {
-        const handleScroll = () => {
-            setIsScrolled(window.scrollY > 50);
-        };
-        window.addEventListener('scroll', handleScroll);
-        return () => window.removeEventListener('scroll', handleScroll);
-    }, []);
+  useEffect(() => {
+          const onScroll = () => {
+                    setScrolled(window.scrollY > 50)
+                    const secs = navLinks.map(l => l.href.slice(1))
+                    for (let i = secs.length - 1; i >= 0; i--) {
+                                const el = document.getElementById(secs[i])
+                                if (el && window.scrollY >= el.offsetTop - 120) { setActive(secs[i]); break }
+                    }
+          }
+          window.addEventListener('scroll', onScroll)
+          return () => window.removeEventListener('scroll', onScroll)
+  }, [])
 
-    return (
-        <motion.nav
-            initial={{ y: -100 }}
-            animate={{ y: 0 }}
-            transition={{ duration: 0.8, ease: "easeOut" }}
-            className={`fixed top-0 w-full z-50 transition-all duration-300 ${isScrolled ? 'glass-surface border-b border-glow-cyan/20 py-4' : 'bg-transparent py-6'
-                }`}
-        >
-            <div className="max-w-7xl mx-auto px-6 flex items-center justify-between">
+  const go = (e, href) => {
+          e.preventDefault(); setMenuOpen(false)
+          document.querySelector(href)?.scrollIntoView({ behavior: 'smooth' })
+  }
 
-                {/* Logo */}
-                <HashLink smooth to="/#hero" className="text-xl md:text-2xl font-heading font-bold tracking-wider relative group">
-                    <span className="text-transparent bg-clip-text bg-gradient-to-r from-[var(--color-jdm-cyan)] to-[var(--color-jdm-purple)] group-hover:text-glow-cyan transition-all">
-                        PAARTH SRIVASTAVA
-                    </span>
-                    <span className="absolute -bottom-1 left-0 w-0 h-[2px] bg-[var(--color-jdm-cyan)] group-hover:w-full transition-all duration-300"></span>
-                </HashLink>
+  const nav = {
+          position: 'fixed', top: 0, left: 0, right: 0, zIndex: 1000,
+          padding: '1rem 2rem', display: 'flex', alignItems: 'center', justifyContent: 'space-between',
+          background: scrolled ? 'rgba(10,10,15,0.93)' : 'transparent',
+          backdropFilter: scrolled ? 'blur(16px)' : 'none',
+          borderBottom: scrolled ? '1px solid rgba(108,99,255,0.15)' : '1px solid transparent',
+          transition: 'all 0.3s ease',
+  }
 
-                {/* Desktop Links */}
-                <div className="hidden md:flex items-center gap-8 text-sm font-mono uppercase tracking-widest text-slate-400">
-                    {navLinks.map((link) => (
-                        <HashLink
-                            smooth
-                            key={link.name}
-                            to={`/${link.href}`}
-                            className={`transition-colors duration-300 relative group ${link.color}`}
-                        >
-                            {link.name}
-                            <span className="absolute -bottom-2 left-1/2 w-0 h-1 bg-current rounded-full group-hover:w-full group-hover:left-0 transition-all duration-300 ease-out"></span>
-                        </HashLink>
-                    ))}
-
-                </div>
-
-                {/* Mobile Menu Button & Controls */}
-                <div className="md:hidden flex items-center gap-4">
-                    <button
-                        className="text-slate-300 hover:text-[var(--color-jdm-cyan)] transition-colors"
-                        onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-                    >
-                        {mobileMenuOpen ? <X size={28} /> : <Menu size={28} />}
-                    </button>
-                </div>
-            </div>
-
-            {/* Mobile Menu Dropdown */}
-            {mobileMenuOpen && (
-                <motion.div
-                    initial={{ opacity: 0, height: 0 }}
-                    animate={{ opacity: 1, height: 'auto' }}
-                    exit={{ opacity: 0, height: 0 }}
-                    className="md:hidden glass-surface-light border-b border-glow-cyan/20 px-6 py-4 flex flex-col gap-4 font-mono text-center uppercase tracking-widest"
-                >
-                    {navLinks.map((link) => (
-                        <HashLink
-                            smooth
-                            key={link.name}
-                            to={`/${link.href}`}
-                            className={`text-slate-300 transition-colors py-2 ${link.color}`}
-                            onClick={() => setMobileMenuOpen(false)}
-                        >
-                            {link.name}
-                        </HashLink>
-                    ))}
-                </motion.div>
-            )}
-        </motion.nav>
-    );
-};
-
-export default Navbar;
+  return (
+          <>
+                <nav style={nav}>
+                        <a href="#hero" onClick={e => go(e, '#hero')} style={{ fontWeight: 800, fontSize: '1.3rem', background: 'linear-gradient(90deg,#6c63ff,#00d4aa)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', textDecoration: 'none' }}>PS</a>a>
+                        <ul style={{ display: 'flex', gap: '2rem', listStyle: 'none', margin: 0 }} className="nav-desktop">
+                            {navLinks.map(l => (
+                          <li key={l.href}>
+                                        <a href={l.href} onClick={e => go(e, l.href)} style={{ color: active === l.href.slice(1) ? '#6c63ff' : '#9999bb', textDecoration: 'none', fontSize: '0.9rem', fontWeight: 500, transition: 'color 0.2s', borderBottom: active === l.href.slice(1) ? '2px solid #6c63ff' : '2px solid transparent', paddingBottom: '2px' }}>{l.label}</a>a>
+                          </li>li>
+                        ))}
+                        </ul>ul>
+                        <a href="https://linkedin.com/in/paarth-srivastava" target="_blank" rel="noreferrer" className="nav-cta" style={{ padding: '0.45rem 1.1rem', background: 'linear-gradient(135deg,#6c63ff,#00d4aa)', color: 'white', borderRadius: '8px', textDecoration: 'none', fontSize: '0.85rem', fontWeight: 600 }}>Connect</a>a>
+                        <button onClick={() => setMenuOpen(m => !m)} className="nav-ham" style={{ display: 'none', background: 'none', border: 'none', color: '#f0f0f8', fontSize: '1.5rem', cursor: 'pointer' }}>{menuOpen ? '\u2715' : '\u2630'}</button>button>
+                </nav>nav>
+              {menuOpen && (
+                      <div style={{ position: 'fixed', top: 64, left: 0, right: 0, zIndex: 999, background: 'rgba(10,10,15,0.97)', backdropFilter: 'blur(16px)', padding: '1.5rem 2rem', borderBottom: '1px solid rgba(108,99,255,0.15)' }}>
+                          {navLinks.map(l => <a key={l.href} href={l.href} onClick={e => go(e, l.href)} style={{ display: 'block', padding: '0.8rem 0', color: '#9999bb', textDecoration: 'none', borderBottom: '1px solid rgba(255,255,255,0.05)' }}>{l.label}</a>a>)}
+                      </div>div>
+                )}
+                <style>{`@media(max-width:768px){.nav-desktop{display:none!important}.nav-cta{display:none!important}.nav-ham{display:block!important}}`}</style>style>
+          </>>
+        )
+}</>
