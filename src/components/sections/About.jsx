@@ -1,74 +1,108 @@
+import { useRef, useEffect, useState } from 'react';
+
+function useInView(threshold = 0.15) {
+  const ref = useRef(null);
+  const [inView, setInView] = useState(false);
+  useEffect(() => {
+    const obs = new IntersectionObserver(([e]) => { if (e.isIntersecting) { setInView(true); obs.disconnect(); } }, { threshold });
+    if (ref.current) obs.observe(ref.current);
+    return () => obs.disconnect();
+  }, [threshold]);
+  return [ref, inView];
+}
+
+const expertise = [
+  { label: 'Industrial Robotics', desc: 'FANUC & MELFA programming, workcell integration, PLC interfacing' },
+  { label: 'Computer Vision', desc: 'MediaPipe, OpenCV, real-time perception pipelines' },
+  { label: 'ROS2 & Simulation', desc: 'Robot operating system, Gazebo, digital twin environments' },
+  { label: 'LLM Agents', desc: 'Tool-use agents, CAD analysis, autonomous reasoning systems' },
+  { label: 'CAD & Fabrication', desc: 'SolidWorks, Fusion 360, mechanical design for Formula Student' },
+  { label: 'Controls & MATLAB', desc: 'Trajectory optimization, Simulink modelling, 4-DOF systems' },
+];
+
+const stats = [
+  { value: '4+', label: 'Years Experience' },
+  { value: '6+', label: 'Projects Shipped' },
+  { value: 'Top 10', label: 'Formula Bharat 2025' },
+  { value: 'Top 15', label: 'SUPRA SAE India 2025' },
+];
+
 export default function About() {
-  const items = [
-    { icon: '🤖', label: 'Industrial Robotics', desc: 'FANUC & MELFA programming, robot logic, path planning' },
-    { icon: '🧠', label: 'AI & LLM Agents', desc: 'CAD Analyzer, Schematic Checker using OCR & graph analysis' },
-    { icon: '👁', label: 'Computer Vision', desc: 'MediaPipe gesture recognition, pose estimation, OpenCV' },
-    { icon: '🌐', label: 'Digital Twins', desc: 'Visual Components simulations, virtual commissioning' },
-    { icon: '⚙️', label: 'Simulation & CAD', desc: 'MATLAB, Simulink, Simscape, FEA/CFD, SolidWorks, Fusion360' },
-    { icon: '🏎️', label: 'Formula Student', desc: 'Team Captain leading 25+ members, SUPRA SAE Top 15/75+ teams' },
-  ]
+  const [ref, inView] = useInView();
 
   return (
-    <section id="about" style={{ background: 'var(--bg-secondary)' }}>
-      <div className="section-container">
-        <h2 className="section-title">About <span>Me</span></h2>
-        <div className="section-divider" />
+    <section id='about' style={{ background: '#0D1117', padding: '5rem 0', borderTop: '1px solid #21262D' }}>
+      <div className='container' ref={ref}>
+        {/* Header */}
+        <div style={{
+          opacity: inView ? 1 : 0, transform: inView ? 'none' : 'translateY(20px)',
+          transition: 'opacity 0.6s ease, transform 0.6s ease',
+          marginBottom: '3rem',
+        }}>
+          <div className='section-label'>About</div>
+          <h2 className='section-title'>Who I am</h2>
+          <p style={{ color: '#8B949E', fontSize: '1rem', maxWidth: '600px', lineHeight: 1.7 }}>
+            B.Tech Robotics &amp; Automation student at Symbiosis Institute of Technology, Pune.
+            Currently a Graduate Trainee Engineer at Bajaj Auto Ltd., working in the Manufacturing &amp; Automation Technology division.
+            Former Formula Student Team Captain leading Wrench Wielders Racing.
+          </p>
+        </div>
 
-        <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '4rem', alignItems: 'start' }}>
-          {/* Left - Bio */}
-          <div>
-            <div style={{ width: '80px', height: '80px', borderRadius: '50%', background: 'linear-gradient(135deg,#6c63ff,#00d4aa)', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '2rem', marginBottom: '1.5rem', boxShadow: '0 0 30px rgba(108,99,255,0.3)' }}>
-              PS
+        {/* Stats row */}
+        <div style={{
+          display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: '1px',
+          background: '#21262D', border: '1px solid #21262D', borderRadius: '8px',
+          overflow: 'hidden', marginBottom: '3rem',
+          opacity: inView ? 1 : 0, transform: inView ? 'none' : 'translateY(20px)',
+          transition: 'opacity 0.6s ease 0.1s, transform 0.6s ease 0.1s',
+        }}>
+          {stats.map((s, i) => (
+            <div key={i} style={{ background: '#161B22', padding: '1.5rem 1.25rem', textAlign: 'center' }}>
+              <div style={{ fontFamily: 'Space Grotesk, sans-serif', fontSize: '1.5rem', fontWeight: 700, color: '#4FD1FF', marginBottom: '0.25rem' }}>{s.value}</div>
+              <div style={{ fontFamily: 'Inter, sans-serif', fontSize: '0.78rem', color: '#8B949E' }}>{s.label}</div>
             </div>
+          ))}
+        </div>
 
-            <h3 style={{ fontSize: '1.4rem', fontWeight: 700, marginBottom: '1rem', color: '#f0f0f8' }}>
-              Robotics & Automation Engineer
-            </h3>
-
-            <p style={{ color: '#9999bb', lineHeight: 1.8, marginBottom: '1rem' }}>
-              I&apos;m a final-year B.Tech Robotics & Automation student at Symbiosis Institute of Technology, Pune, with hands-on experience spanning industrial automation, AI-driven systems, computer vision, and simulation engineering.
-            </p>
-
-            <p style={{ color: '#9999bb', lineHeight: 1.8, marginBottom: '1rem' }}>
-              Currently working as a Graduate Trainee Engineer at <strong style={{ color: '#f0f0f8' }}>Bajaj Auto Ltd.</strong> (M&AT Division), where I engineer CAD analyzer agents using LLMs, program industrial robots, and build digital twin simulations for virtual commissioning.
-            </p>
-
-            <p style={{ color: '#9999bb', lineHeight: 1.8, marginBottom: '2rem' }}>
-              Previously served as Team Captain of <strong style={{ color: '#f0f0f8' }}>Wrench Wielders Racing</strong>, leading 25+ members to a Top 15 finish at SUPRA SAE India 2025 out of 75+ teams.
-            </p>
-
-            {/* Stats */}
-            <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1rem' }}>
-              {[
-                { num: '3+', label: 'Years Experience' },
-                { num: 'Top 15', label: 'SUPRA SAE 2025' },
-                { num: '4+', label: 'Major Projects' },
-                { num: '5+', label: 'Tech Domains' },
-              ].map(s => (
-                <div key={s.label} style={{ padding: '1rem', background: 'var(--bg-card)', borderRadius: '10px', border: '1px solid var(--border)', textAlign: 'center' }}>
-                  <div style={{ fontSize: '1.6rem', fontWeight: 800, background: 'linear-gradient(135deg,#6c63ff,#00d4aa)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent' }}>{s.num}</div>
-                  <div style={{ fontSize: '0.8rem', color: '#7777aa', marginTop: '0.2rem' }}>{s.label}</div>
-                </div>
-              ))}
-            </div>
-          </div>
-
-          {/* Right - Expertise Grid */}
-          <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1rem' }}>
-            {items.map(item => (
-              <div key={item.label} style={{ padding: '1.2rem', background: 'var(--bg-card)', borderRadius: '12px', border: '1px solid var(--border)', transition: 'border-color 0.2s, transform 0.2s' }}
-                onMouseEnter={e => { e.currentTarget.style.borderColor='rgba(108,99,255,0.5)'; e.currentTarget.style.transform='translateY(-2px)' }}
-                onMouseLeave={e => { e.currentTarget.style.borderColor='var(--border)'; e.currentTarget.style.transform='none' }}>
-                <div style={{ fontSize: '1.8rem', marginBottom: '0.5rem' }}>{item.icon}</div>
-                <div style={{ fontWeight: 600, fontSize: '0.9rem', color: '#f0f0f8', marginBottom: '0.3rem' }}>{item.label}</div>
-                <div style={{ fontSize: '0.8rem', color: '#7777aa', lineHeight: 1.5 }}>{item.desc}</div>
+        {/* Expertise grid */}
+        <div style={{ marginBottom: '2rem' }}>
+          <h3 style={{
+            fontFamily: 'Space Grotesk, sans-serif', fontSize: '0.875rem', fontWeight: 500,
+            color: '#8B949E', letterSpacing: '0.08em', textTransform: 'uppercase',
+            marginBottom: '1.25rem',
+            opacity: inView ? 1 : 0, transition: 'opacity 0.6s ease 0.2s',
+          }}>Core Expertise</h3>
+          <div style={{
+            display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '1px',
+            background: '#21262D', border: '1px solid #21262D', borderRadius: '8px', overflow: 'hidden',
+          }}>
+            {expertise.map((item, i) => (
+              <div key={i} style={{
+                background: '#161B22', padding: '1.25rem',
+                transition: 'background 0.2s ease',
+                opacity: inView ? 1 : 0, transform: inView ? 'none' : 'translateY(15px)',
+                transitionDelay: (0.15 + i * 0.07) + 's',
+                transitionProperty: 'opacity, transform',
+                transitionDuration: '0.5s',
+                transitionTimingFunction: 'ease',
+              }}
+              onMouseEnter={e => e.currentTarget.style.background = '#1C2128'}
+              onMouseLeave={e => e.currentTarget.style.background = '#161B22'}
+              >
+                <div style={{ fontFamily: 'Space Grotesk, sans-serif', fontSize: '0.9rem', fontWeight: 600, color: '#E6EDF3', marginBottom: '0.4rem' }}>{item.label}</div>
+                <div style={{ fontFamily: 'Inter, sans-serif', fontSize: '0.8rem', color: '#8B949E', lineHeight: 1.5 }}>{item.desc}</div>
               </div>
             ))}
           </div>
         </div>
       </div>
 
-      <style>{`@media(max-width:768px){#about .section-container > div{grid-template-columns:1fr!important;gap:2rem!important}}`}</style>
+      <style>{`
+        @media (max-width: 768px) {
+          #about .container > div:nth-child(2) { grid-template-columns: repeat(2,1fr) !important; }
+          #about .container > div:nth-child(3) > div:last-child { grid-template-columns: 1fr !important; }
+        }
+      `}</style>
     </section>
-  )
+  );
 }
