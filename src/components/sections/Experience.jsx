@@ -1,118 +1,120 @@
-import React from 'react';
-import { motion } from 'framer-motion';
+import { useState } from 'react'
 
 const experiences = [
-    {
-        company: "Bajaj Auto Ltd",
-        role: "Graduate Trainee Engineer (Intern)",
-        period: "Jan 2026 - Present",
-        description: "Operating in the Manufacturing & Automation Technology (M&AT) department. Gaining exposure to industrial automation systems, optimizing manual operations using automated machinery, and learning shop-floor process improvements.",
-        skills: ["Automation", "Robotics", "Manufacturing"],
-        color: "var(--color-jdm-cyan)",
-        glow: "shadow-neon-cyan"
-    },
-    {
-        company: "Wrench Wielders Racing",
-        role: "Team Captain & Head of Design",
-        period: "Sep 2023 - Nov 2025",
-        description: "Led the Student Formula team through vehicle design, engineering, and performance optimization. Setup rigorous testing and oversaw CAD modeling, simulations, and manufacturing feasibility.",
-        skills: ["CAD/CAM", "SolidWorks", "Leadership", "Vehicle Dynamics"],
-        color: "var(--color-jdm-pink)",
-        glow: "shadow-neon-pink"
-    },
-    {
-        company: "BrightCHAMPS",
-        role: "Robotics Instructor",
-        period: "Jul 2025 - Aug 2025",
-        description: "Taught young learners fundamentals of robotics and coding, fostering creativity and simplifying complex technical concepts.",
-        skills: ["Robotics", "Programming", "Teaching"],
-        color: "var(--color-jdm-green)",
-        glow: "shadow-neon-green"
-    },
-    {
-        company: "Freelancer",
-        role: "Web Dev & 3D Modeling",
-        period: "Jun 2018 - Sep 2024",
-        description: "Delivered end-to-end solutions across web development, graphic design, and 3D modeling for rapid prototyping to various clients.",
-        skills: ["Web Development", "Figma", "3D Printing"],
-        color: "var(--color-jdm-purple)",
-        glow: "shadow-neon-purple"
-    }
-];
+  {
+    company: 'Bajaj Auto Ltd.',
+    role: 'Graduate Trainee Engineer — M&AT Division',
+    period: 'Jan 2026 – Present',
+    type: 'Full-time',
+    color: '#6c63ff',
+    bullets: [
+      'Engineered CAD Analyzer & Schematic Checker Agents using LLM, OCR, and graph-based validation pipelines for automated drawing and schematic verification.',
+      'Programmed FANUC articulated and MELFA SCARA robots, configured robot logic, and built Visual Components digital twins for reachability, cycle-time analysis, and virtual commissioning.',
+      'Developed a computer vision robot-interaction PoC using MediaPipe gesture recognition and 24V I/O triggering for contactless robotic control.',
+    ],
+    tags: ['LLM Agents', 'FANUC', 'MELFA', 'Visual Components', 'MediaPipe', 'Python'],
+  },
+  {
+    company: 'Bajaj Auto Ltd.',
+    role: 'Intern — M&AT Division',
+    period: 'Jan 2026 – Jul 2026',
+    type: 'Internship',
+    color: '#6c63ff',
+    bullets: [
+      'Contributed to CAD analysis automation and robot programming initiatives.',
+      'Worked on digital twin development and simulation validation workflows.',
+    ],
+    tags: ['Internship', 'CAD Analysis', 'Robotics', 'Simulation'],
+  },
+  {
+    company: 'Wrench Wielders Racing — Formula Student',
+    role: 'Team Captain (Design Trainee → Co-Head → Head → Captain)',
+    period: 'Feb 2023 – Nov 2025',
+    type: 'Leadership',
+    color: '#00d4aa',
+    bullets: [
+      'Led 25+ members across mechanical and software sub-teams; directed complete vehicle architecture overhaul via CAD/CFD/FEA.',
+      'Managed sponsorships, budgets, and compliance for SUPRA SAE competitions.',
+      'Achieved Top 15 finish out of 75+ teams at SUPRA SAE India 2025 (Endurance Event). Qualified Top 10 at Formula Bharat 2025.',
+    ],
+    tags: ['Team Leadership', 'CAD', 'CFD', 'FEA', 'SUPRA SAE', 'Formula Student'],
+  },
+  {
+    company: 'Independent Consultant',
+    role: 'Freelancer & Robotics Instructor',
+    period: 'Jun 2018 – Sep 2024',
+    type: 'Freelance',
+    color: '#ffa94d',
+    bullets: [
+      'Collaborated with clients and small businesses across multiple domains: web development, graphic design, CAD-based product prototyping, and digital branding.',
+      'Built websites using HTML/CSS/JSON, created 3D-print-ready CAD models, designed visual assets for branding and social media.',
+      'Served as a Robotics Instructor, teaching fundamental and advanced robotics concepts.',
+    ],
+    tags: ['Web Dev', 'CAD', 'Graphic Design', 'Robotics Instructor', 'Freelance'],
+  },
+]
 
-const Experience = () => {
-    return (
-        <section id="experience" className="py-24 relative overflow-hidden">
-            <div className="container mx-auto px-6 max-w-5xl">
-                <div className="text-center mb-20">
-                    <motion.div
-                        initial={{ opacity: 0, scale: 0.9 }}
-                        whileInView={{ opacity: 1, scale: 1 }}
-                        viewport={{ once: true }}
-                        className="inline-block border border-[var(--color-jdm-cyan)]/30 text-[var(--color-jdm-cyan)] px-4 py-1 rounded-full text-xs font-mono mb-4 tracking-widest uppercase"
-                    >
-                        Career Matrix
-                    </motion.div>
-                    <motion.h2
-                        initial={{ opacity: 0, y: 20 }}
-                        whileInView={{ opacity: 1, y: 0 }}
-                        viewport={{ once: true }}
-                        className="text-4xl md:text-5xl font-heading font-bold"
-                    >
-                        OPERATIONAL <span className="text-glow-cyan text-transparent bg-clip-text bg-gradient-to-r from-[var(--color-jdm-cyan)] to-[var(--color-jdm-pink)]">HISTORY</span>
-                    </motion.h2>
-                </div>
+export default function Experience() {
+  const [expanded, setExpanded] = useState(0)
 
-                <div className="relative border-l border-white/10 md:mx-auto md:w-3/4">
-                    {experiences.map((exp, index) => (
-                        <motion.div
-                            initial={{ opacity: 0, x: -30 }}
-                            whileInView={{ opacity: 1, x: 0 }}
-                            viewport={{ once: true, margin: "-50px" }}
-                            transition={{ duration: 0.5, delay: index * 0.1 }}
-                            key={index}
-                            className="mb-12 ml-6 relative group"
-                        >
-                            {/* Timeline dot */}
-                            <span
-                                className={`absolute -left-[32px] top-1 w-4 h-4 rounded-full border-2 border-[var(--color-jdm-surface)] ${exp.glow} transition-transform duration-300 group-hover:scale-150`}
-                                style={{ backgroundColor: exp.color }}
-                            ></span>
+  return (
+    <section id="experience" style={{ background: 'var(--bg-secondary)' }}>
+      <div className="section-container">
+        <h2 className="section-title">Professional <span>Experience</span></h2>
+        <p className="section-subtitle">My professional journey and roles</p>
+        <div className="section-divider" />
 
-                            <div className={`glass-surface jdm-bubble p-6 rounded-xl border border-white/5 transition-all duration-300 hover:border-white/20 hover:translate-x-2`}>
-                                <div className="flex flex-col md:flex-row md:justify-between md:items-start mb-4">
-                                    <div>
-                                        <h3 className="text-xl font-heading font-bold text-white mb-1 transition-colors group-hover:text-transparent group-hover:bg-clip-text group-hover:bg-gradient-to-r group-hover:from-white group-hover:to-slate-400">
-                                            {exp.role}
-                                        </h3>
-                                        <h4 className="text-lg font-mono" style={{ color: exp.color }}>{exp.company}</h4>
-                                    </div>
-                                    <span className="font-mono text-xs text-slate-400 mt-2 md:mt-0 px-3 py-1 bg-black/40 rounded-full border border-white/10 w-max h-max">
-                                        {exp.period}
-                                    </span>
-                                </div>
+        <div style={{ display: 'grid', gridTemplateColumns: '1fr 2fr', gap: '2rem', alignItems: 'start' }}>
+          {/* Timeline */}
+          <div style={{ position: 'sticky', top: '100px' }}>
+            {experiences.map((exp, i) => (
+              <button key={i} onClick={() => setExpanded(i)}
+                style={{
+                  width: '100%', textAlign: 'left', padding: '1rem 1.2rem',
+                  background: expanded === i ? 'rgba(108,99,255,0.1)' : 'transparent',
+                  border: expanded === i ? `1px solid ${exp.color}44` : '1px solid transparent',
+                  borderLeft: `3px solid ${expanded === i ? exp.color : 'transparent'}`,
+                  borderRadius: '8px', cursor: 'pointer', marginBottom: '0.5rem',
+                  transition: 'all 0.2s',
+                }}>
+                <div style={{ fontWeight: 600, fontSize: '0.9rem', color: expanded === i ? '#f0f0f8' : '#9999bb' }}>{exp.company}</div>
+                <div style={{ fontSize: '0.78rem', color: expanded === i ? exp.color : '#555', marginTop: '0.2rem' }}>{exp.period}</div>
+              </button>
+            ))}
+          </div>
 
-                                <p className="text-slate-400 font-light text-sm leading-relaxed mb-6">
-                                    {exp.description}
-                                </p>
-
-                                <div className="flex flex-wrap gap-2">
-                                    {exp.skills.map((skill, sIdx) => (
-                                        <span
-                                            key={sIdx}
-                                            className="px-2 py-1 text-xs font-mono text-slate-300 bg-white/5 rounded border border-white/10"
-                                        >
-                                            {skill}
-                                        </span>
-                                    ))}
-                                </div>
-                            </div>
-                        </motion.div>
-                    ))}
-                </div>
+          {/* Details */}
+          <div style={{ background: 'var(--bg-card)', borderRadius: '16px', padding: '2rem', border: `1px solid ${experiences[expanded].color}33` }}>
+            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '0.5rem', flexWrap: 'wrap', gap: '0.5rem' }}>
+              <div>
+                <h3 style={{ fontSize: '1.2rem', fontWeight: 700, color: '#f0f0f8' }}>{experiences[expanded].role}</h3>
+                <div style={{ color: experiences[expanded].color, fontWeight: 600, marginTop: '0.2rem' }}>{experiences[expanded].company}</div>
+              </div>
+              <div style={{ display: 'flex', gap: '0.5rem', flexWrap: 'wrap' }}>
+                <span style={{ padding: '0.3rem 0.8rem', background: experiences[expanded].color + '20', border: `1px solid ${experiences[expanded].color}44`, borderRadius: '20px', color: experiences[expanded].color, fontSize: '0.78rem', fontWeight: 500 }}>{experiences[expanded].type}</span>
+                <span style={{ padding: '0.3rem 0.8rem', background: 'rgba(255,255,255,0.05)', borderRadius: '20px', color: '#9999bb', fontSize: '0.78rem' }}>{experiences[expanded].period}</span>
+              </div>
             </div>
-        </section>
-    );
-};
 
-export default Experience;
+            <ul style={{ listStyle: 'none', padding: 0, margin: '1.5rem 0' }}>
+              {experiences[expanded].bullets.map((bullet, i) => (
+                <li key={i} style={{ display: 'flex', gap: '0.8rem', marginBottom: '1rem', color: '#9999bb', lineHeight: 1.7, fontSize: '0.95rem' }}>
+                  <span style={{ color: experiences[expanded].color, marginTop: '0.3rem', flexShrink: 0 }}>▶</span>
+                  {bullet}
+                </li>
+              ))}
+            </ul>
+
+            <div style={{ display: 'flex', flexWrap: 'wrap', gap: '0.5rem' }}>
+              {experiences[expanded].tags.map(tag => (
+                <span key={tag} style={{ padding: '0.25rem 0.7rem', background: 'rgba(255,255,255,0.05)', borderRadius: '6px', color: '#7777aa', fontSize: '0.8rem', border: '1px solid rgba(255,255,255,0.08)' }}>{tag}</span>
+              ))}
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <style>{`@media(max-width:768px){#experience .section-container > div:last-child{grid-template-columns:1fr!important}}`}</style>
+    </section>
+  )
+}
