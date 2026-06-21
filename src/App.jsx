@@ -1,28 +1,27 @@
-import { Canvas } from '@react-three/fiber'
-import { Suspense, useState, useRef } from 'react'
-import Scene from './components/Scene'
-import UI from './components/UI'
-import LoadingScreen from './components/LoadingScreen'
+import { useEffect, useRef, useState } from 'react'
 import './App.css'
+import Hero from './components/sections/Hero'
+import About from './components/sections/About'
+import Skills from './components/sections/Skills'
+import Experience from './components/sections/Experience'
+import Projects from './components/sections/Projects'
+import Education from './components/sections/Education'
+import Contact from './components/sections/Contact'
+import Navbar from './components/layout/Navbar'
 
 export default function App() {
-  const [loaded, setLoaded] = useState(false)
-  const [activeZone, setActiveZone] = useState(null)
-
-  return (
-    <div className="app">
-      {!loaded && <LoadingScreen onFinish={() => setLoaded(true)} />}
-      <Canvas
-        camera={{ position: [0, 5, 12], fov: 60 }}
-        gl={{ antialias: true }}
-        shadows
-        style={{ width: '100vw', height: '100vh' }}
-      >
-        <Suspense fallback={null}>
-          <Scene onZoneClick={setActiveZone} />
-        </Suspense>
-      </Canvas>
-      <UI activeZone={activeZone} onClose={() => setActiveZone(null)} />
-    </div>
-  )
-}
+    return (
+          <div className="app-root">
+                <Navbar />
+                <main>
+                        <Hero />
+                        <About />
+                        <Skills />
+                        <Experience />
+                        <Projects />
+                        <Education />
+                        <Contact />
+                </main>main>
+          </div>div>
+        )
+}</div>
