@@ -21,7 +21,7 @@ const achievements = [
   {
     icon: '🏎️',
     title: 'SUPRA SAE India 2025 — Top 15',
-    desc: 'Secured a Top 15 finish out of 75+ teams, successfully completing the Endurance Event — one of the most demanding dynamic events, highlighting the vehicle's reliability, performance, and team execution.',
+    desc: 'Secured a Top 15 finish out of 75+ teams, successfully completing the Endurance Event — one of the most demanding dynamic events, highlighting the vehicle reliability, performance, and team execution.',
     color: '#ffa94d',
   },
   {
