@@ -1,103 +1,135 @@
-import React from 'react';
-import { motion } from 'framer-motion';
-import { Mail, Github, Linkedin, TerminalSquare, ArrowRight } from 'lucide-react';
+export default function Contact() {
+  const contacts = [
+    {
+      icon: (
+        <svg width="22" height="22" fill="currentColor" viewBox="0 0 24 24"><path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg>
+      ),
+      label: 'Email',
+      value: 'paarth.srivastava777@gmail.com',
+      href: 'mailto:paarth.srivastava777@gmail.com',
+      color: '#6c63ff',
+    },
+    {
+      icon: (
+        <svg width="22" height="22" fill="currentColor" viewBox="0 0 24 24"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+      ),
+      label: 'LinkedIn',
+      value: 'linkedin.com/in/paarth-srivastava',
+      href: 'https://linkedin.com/in/paarth-srivastava',
+      color: '#00d4aa',
+    },
+    {
+      icon: (
+        <svg width="22" height="22" fill="currentColor" viewBox="0 0 24 24"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0 0 24 12c0-6.63-5.37-12-12-12z"/></svg>
+      ),
+      label: 'GitHub',
+      value: 'github.com/PaarthSuwi',
+      href: 'https://github.com/PaarthSuwi',
+      color: '#ff6b9d',
+    },
+    {
+      icon: (
+        <svg width="22" height="22" fill="currentColor" viewBox="0 0 24 24"><path d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z"/></svg>
+      ),
+      label: 'Phone',
+      value: '+91 90829 42788',
+      href: 'tel:+919082942788',
+      color: '#ffa94d',
+    },
+    {
+      icon: (
+        <svg width="22" height="22" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>
+      ),
+      label: 'Location',
+      value: 'Pune, India',
+      href: null,
+      color: '#74c0fc',
+    },
+  ]
 
-const Contact = () => {
-    return (
-        <section id="contact" className="py-24 relative overflow-hidden bg-gradient-to-b from-transparent to-black/80 border-t border-white/5">
+  return (
+    <section id="contact" style={{ background: 'var(--bg-secondary)' }}>
+      <div className="section-container">
+        <h2 className="section-title">Get In <span>Touch</span></h2>
+        <p className="section-subtitle">Let&apos;s connect and discuss opportunities</p>
+        <div className="section-divider" />
 
-            {/* Background Decor */}
-            <div className="absolute bottom-[-20%] right-[-10%] w-[50%] h-[50%] rounded-full bg-[var(--color-jdm-cyan)] opacity-5 blur-[150px] pointer-events-none"></div>
+        <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '4rem', alignItems: 'start' }}>
+          {/* Left - Message */}
+          <div>
+            <h3 style={{ fontSize: '1.4rem', fontWeight: 700, color: '#f0f0f8', marginBottom: '1rem' }}>
+              Let&apos;s Work Together
+            </h3>
+            <p style={{ color: '#9999bb', lineHeight: 1.8, marginBottom: '1rem' }}>
+              I&apos;m currently a Graduate Trainee Engineer at Bajaj Auto and open to interesting opportunities in robotics, automation, AI engineering, and related domains.
+            </p>
+            <p style={{ color: '#9999bb', lineHeight: 1.8, marginBottom: '2rem' }}>
+              Whether you want to discuss a project, collaboration, job opportunity, or just want to talk tech — feel free to reach out through any of the channels below.
+            </p>
 
-            <div className="container mx-auto px-6 max-w-4xl relative z-10">
-
-                <div className="text-center mb-16">
-                    <motion.div
-                        initial={{ opacity: 0, y: 20 }}
-                        whileInView={{ opacity: 1, y: 0 }}
-                        viewport={{ once: true }}
-                        className="inline-flex items-center justify-center p-4 rounded-full bg-white/5 border border-white/10 mb-6 text-glow-cyan"
-                    >
-                        <TerminalSquare size={32} />
-                    </motion.div>
-                    <motion.h2
-                        initial={{ opacity: 0, y: 20 }}
-                        whileInView={{ opacity: 1, y: 0 }}
-                        viewport={{ once: true }}
-                        className="text-5xl md:text-7xl font-heading font-black tracking-tighter mb-6 text-transparent bg-clip-text bg-gradient-to-br from-white via-slate-300 to-[var(--color-jdm-cyan)]"
-                    >
-                        INITIATE <br />CONNECTION
-                    </motion.h2>
-                    <motion.p
-                        initial={{ opacity: 0 }}
-                        whileInView={{ opacity: 1 }}
-                        viewport={{ once: true }}
-                        className="text-lg text-slate-400 font-mono"
-                    >
-                        Ready to build something extraordinary? Secure a channel.
-                    </motion.p>
-                </div>
-
-                <div className="grid md:grid-cols-2 gap-8 max-w-3xl mx-auto font-mono">
-                    <motion.a
-                        href="mailto:paarth.srivastava777@gmail.com"
-                        target="_blank"
-                        rel="noreferrer"
-                        initial={{ opacity: 0, x: -30 }}
-                        whileInView={{ opacity: 1, x: 0 }}
-                        viewport={{ once: true }}
-                        className="glass-surface p-8 rounded-2xl border border-[var(--color-jdm-cyan)] shadow-neon-cyan flex flex-col items-center text-center group hover:-translate-y-2 transition-transform duration-300"
-                    >
-                        <div className="bg-[var(--color-jdm-cyan)]/10 p-4 rounded-full mb-6 group-hover:scale-110 transition-transform">
-                            <Mail size={32} className="text-[var(--color-jdm-cyan)] text-glow-cyan" />
-                        </div>
-                        <h3 className="text-2xl font-bold text-white mb-2 tracking-widest uppercase">Email Protocol</h3>
-                        <p className="text-slate-400 text-sm mb-6">Direct secure transmission.</p>
-                        <div className="mt-auto flex items-center gap-2 text-[var(--color-jdm-cyan)] group-hover:gap-4 transition-all">
-                            Send Transmission <ArrowRight size={16} />
-                        </div>
-                    </motion.a>
-
-                    <motion.a
-                        href="https://www.linkedin.com/in/paarth-srivastava-65806623b/"
-                        target="_blank"
-                        rel="noreferrer"
-                        initial={{ opacity: 0, x: 30 }}
-                        whileInView={{ opacity: 1, x: 0 }}
-                        viewport={{ once: true }}
-                        className="glass-surface p-8 rounded-2xl border border-[var(--color-jdm-pink)] shadow-neon-pink flex flex-col items-center text-center group hover:-translate-y-2 transition-transform duration-300"
-                    >
-                        <div className="bg-[var(--color-jdm-pink)]/10 p-4 rounded-full mb-6 group-hover:scale-110 transition-transform">
-                            <Linkedin size={32} className="text-[var(--color-jdm-pink)] text-glow-pink" />
-                        </div>
-                        <h3 className="text-2xl font-bold text-white mb-2 tracking-widest uppercase">Professional Sync</h3>
-                        <p className="text-slate-400 text-sm mb-6">Establish neural link on LinkedIn.</p>
-                        <div className="mt-auto flex items-center gap-2 text-[var(--color-jdm-pink)] group-hover:gap-4 transition-all">
-                            Connect Profile <ArrowRight size={16} />
-                        </div>
-                    </motion.a>
-                </div>
-
-                {/* Additional Links */}
-                <motion.div
-                    initial={{ opacity: 0 }}
-                    whileInView={{ opacity: 1 }}
-                    viewport={{ once: true }}
-                    transition={{ delay: 0.3 }}
-                    className="flex justify-center gap-8 mt-20"
-                >
-                    <a href="https://github.com/PaarthSuwi" target="_blank" rel="noreferrer" className="text-slate-500 hover:text-[var(--color-jdm-cyan)] transition-colors p-3 border border-transparent hover:border-white/10 glass-surface rounded-full flex gap-3 text-sm font-mono items-center">
-                        <Github size={20} /> Access GitHub Repo
-                    </a>
-                </motion.div>
-
-                <div className="text-center mt-20 text-slate-600 font-mono text-xs uppercase tracking-widest">
-                    © {new Date().getFullYear()} PAARTH SRIVASTAVA. All systems nominal.
-                </div>
-
+            {/* Availability */}
+            <div style={{ padding: '1.2rem 1.5rem', background: 'rgba(0,212,170,0.08)', border: '1px solid rgba(0,212,170,0.25)', borderRadius: '12px', display: 'flex', alignItems: 'center', gap: '1rem', marginBottom: '2rem' }}>
+              <span style={{ width: '10px', height: '10px', borderRadius: '50%', background: '#00d4aa', flexShrink: 0, boxShadow: '0 0 10px #00d4aa' }} />
+              <div>
+                <div style={{ fontWeight: 600, color: '#f0f0f8', fontSize: '0.95rem' }}>Available for Opportunities</div>
+                <div style={{ color: '#9999bb', fontSize: '0.85rem', marginTop: '0.2rem' }}>Open to full-time roles in Robotics, AI & Automation</div>
+              </div>
             </div>
-        </section>
-    );
-};
 
-export default Contact;
+            {/* Quick links */}
+            <div style={{ display: 'flex', gap: '1rem', flexWrap: 'wrap' }}>
+              <a href="https://linkedin.com/in/paarth-srivastava" target="_blank" rel="noreferrer"
+                style={{ padding: '0.7rem 1.5rem', background: 'linear-gradient(135deg,#6c63ff,#00d4aa)', color: 'white', borderRadius: '8px', textDecoration: 'none', fontWeight: 600, fontSize: '0.9rem', transition: 'transform 0.2s' }}
+                onMouseEnter={e => e.currentTarget.style.transform='translateY(-2px)'}
+                onMouseLeave={e => e.currentTarget.style.transform='none'}>
+                Connect on LinkedIn
+              </a>
+              <a href="mailto:paarth.srivastava777@gmail.com"
+                style={{ padding: '0.7rem 1.5rem', background: 'transparent', color: '#f0f0f8', borderRadius: '8px', textDecoration: 'none', fontWeight: 600, fontSize: '0.9rem', border: '1px solid rgba(108,99,255,0.4)', transition: 'all 0.2s' }}
+                onMouseEnter={e => { e.currentTarget.style.background='rgba(108,99,255,0.1)'; e.currentTarget.style.borderColor='#6c63ff' }}
+                onMouseLeave={e => { e.currentTarget.style.background='transparent'; e.currentTarget.style.borderColor='rgba(108,99,255,0.4)' }}>
+                Send Email
+              </a>
+            </div>
+          </div>
+
+          {/* Right - Contact Cards */}
+          <div style={{ display: 'flex', flexDirection: 'column', gap: '0.8rem' }}>
+            {contacts.map(c => (
+              c.href ? (
+                <a key={c.label} href={c.href} target={c.href.startsWith('http') ? '_blank' : undefined} rel={c.href.startsWith('http') ? 'noreferrer' : undefined}
+                  style={{ display: 'flex', alignItems: 'center', gap: '1rem', padding: '1rem 1.2rem', background: 'var(--bg-card)', borderRadius: '10px', border: `1px solid ${c.color}22`, textDecoration: 'none', transition: 'all 0.2s' }}
+                  onMouseEnter={e => { e.currentTarget.style.borderColor = c.color + '55'; e.currentTarget.style.transform = 'translateX(4px)' }}
+                  onMouseLeave={e => { e.currentTarget.style.borderColor = c.color + '22'; e.currentTarget.style.transform = 'none' }}>
+                  <div style={{ width: '44px', height: '44px', borderRadius: '10px', background: c.color + '15', border: `1px solid ${c.color}33`, display: 'flex', alignItems: 'center', justifyContent: 'center', color: c.color, flexShrink: 0 }}>{c.icon}</div>
+                  <div>
+                    <div style={{ fontSize: '0.8rem', color: '#7777aa', marginBottom: '0.1rem' }}>{c.label}</div>
+                    <div style={{ fontSize: '0.9rem', color: '#f0f0f8', fontWeight: 500 }}>{c.value}</div>
+                  </div>
+                </a>
+              ) : (
+                <div key={c.label}
+                  style={{ display: 'flex', alignItems: 'center', gap: '1rem', padding: '1rem 1.2rem', background: 'var(--bg-card)', borderRadius: '10px', border: `1px solid ${c.color}22` }}>
+                  <div style={{ width: '44px', height: '44px', borderRadius: '10px', background: c.color + '15', border: `1px solid ${c.color}33`, display: 'flex', alignItems: 'center', justifyContent: 'center', color: c.color, flexShrink: 0 }}>{c.icon}</div>
+                  <div>
+                    <div style={{ fontSize: '0.8rem', color: '#7777aa', marginBottom: '0.1rem' }}>{c.label}</div>
+                    <div style={{ fontSize: '0.9rem', color: '#f0f0f8', fontWeight: 500 }}>{c.value}</div>
+                  </div>
+                </div>
+              )
+            ))}
+          </div>
+        </div>
+      </div>
+
+      {/* Footer */}
+      <div style={{ marginTop: '5rem', padding: '2rem', borderTop: '1px solid rgba(255,255,255,0.05)', textAlign: 'center' }}>
+        <p style={{ color: '#444', fontSize: '0.85rem' }}>
+          Built with React & Vite by Paarth Srivastava &nbsp;·&nbsp; 2026
+        </p>
+      </div>
+
+      <style>{`@media(max-width:768px){#contact .section-container > div:last-child{grid-template-columns:1fr!important;gap:2rem!important}}`}</style>
+    </section>
+  )
+}
