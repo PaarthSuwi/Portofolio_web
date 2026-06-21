@@ -1,76 +1,74 @@
-import React from 'react';
-import { motion } from 'framer-motion';
+export default function About() {
+  const items = [
+    { icon: '🤖', label: 'Industrial Robotics', desc: 'FANUC & MELFA programming, robot logic, path planning' },
+    { icon: '🧠', label: 'AI & LLM Agents', desc: 'CAD Analyzer, Schematic Checker using OCR & graph analysis' },
+    { icon: '👁', label: 'Computer Vision', desc: 'MediaPipe gesture recognition, pose estimation, OpenCV' },
+    { icon: '🌐', label: 'Digital Twins', desc: 'Visual Components simulations, virtual commissioning' },
+    { icon: '⚙️', label: 'Simulation & CAD', desc: 'MATLAB, Simulink, Simscape, FEA/CFD, SolidWorks, Fusion360' },
+    { icon: '🏎️', label: 'Formula Student', desc: 'Team Captain leading 25+ members, SUPRA SAE Top 15/75+ teams' },
+  ]
 
-const About = () => {
-    return (
-        <section id="about" className="py-24 relative overflow-hidden text-slate-300">
+  return (
+    <section id="about" style={{ background: 'var(--bg-secondary)' }}>
+      <div className="section-container">
+        <h2 className="section-title">About <span>Me</span></h2>
+        <div className="section-divider" />
 
-            {/* Decorative Glow */}
-            <div className="absolute top-1/2 right-[-20%] w-[50%] h-[50%] rounded-full bg-[var(--color-jdm-purple)] opacity/5 blur-[150px] pointer-events-none"></div>
-
-            <div className="container mx-auto px-6 max-w-5xl relative z-10">
-                <motion.div
-                    initial={{ opacity: 0, y: 50 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true, margin: "-100px" }}
-                    transition={{ duration: 0.6 }}
-                    className="grid md:grid-cols-2 gap-16 items-center"
-                >
-                    {/* Text Content */}
-                    <div>
-                        <div className="flex items-center gap-4 mb-6">
-                            <span className="h-[2px] w-12 bg-[var(--color-jdm-cyan)]"></span>
-                            <h2 className="text-3xl md:text-5xl font-heading font-bold text-transparent bg-clip-text bg-gradient-to-r from-white to-slate-500">
-                                ABOUT SYSTEM
-                            </h2>
-                        </div>
-
-                        <div className="space-y-6 text-lg font-light leading-relaxed">
-                            <p>
-                                I am a driven <strong className="text-white font-medium">Robotics and Automation student</strong> blending mechanical engineering with intelligent software.
-                            </p>
-                            <p>
-                                My expertise spans across Parametric CAD, complex control systems, and AI-driven robotics. I build solutions that bridge the gap between pure code and the physical world.
-                            </p>
-
-                            <div className="font-mono text-sm tracking-widest uppercase border-l-2 border-[var(--color-jdm-pink)] pl-4 py-2 mt-8 text-[var(--color-jdm-pink)]">
-                                &gt; Design // Simulate // Automate
-                            </div>
-                        </div>
-                    </div>
-
-                    {/* Abstract Visual / Stats */}
-                    <div className="relative">
-                        <div className="glass-surface-light p-8 rounded-2xl border border-white/5 shadow-neon-purple relative z-10">
-                            <div className="flex flex-col gap-6 font-mono">
-                                <div className="flex justify-between items-center border-b border-white/10 pb-4">
-                                    <span className="text-slate-500 text-sm">STATUS</span>
-                                    <span className="text-glow-cyan text-[var(--color-jdm-cyan)] drop-shadow-md">Active.Available</span>
-                                </div>
-                                <div className="flex justify-between items-center border-b border-white/10 pb-4">
-                                    <span className="text-slate-500 text-sm">FOCUS</span>
-                                    <span className="text-white">Robotics & AI Control</span>
-                                </div>
-                                <div className="flex justify-between items-center border-b border-white/10 pb-4">
-                                    <span className="text-slate-500 text-sm">LOCATION</span>
-                                    <span className="text-white">Earth // Internet</span>
-                                </div>
-                                <div className="flex justify-between items-center pt-2">
-                                    <span className="text-slate-500 text-sm">EXPERIENCE</span>
-                                    <span className="text-glow-pink text-[var(--color-jdm-pink)] font-bold">3+ Years</span>
-                                </div>
-                            </div>
-                        </div>
-
-                        {/* Geometric accents */}
-                        <div className="absolute -top-4 -right-4 w-24 h-24 border border-[var(--color-jdm-cyan)]/30 rounded-full animate-[spin_10s_linear_infinite]"></div>
-                        <div className="absolute -bottom-6 -left-6 w-32 h-32 border border-[var(--color-jdm-pink)]/20 border-dashed rounded-full animate-[spin_15s_linear_infinite_reverse]"></div>
-                    </div>
-
-                </motion.div>
+        <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '4rem', alignItems: 'start' }}>
+          {/* Left - Bio */}
+          <div>
+            <div style={{ width: '80px', height: '80px', borderRadius: '50%', background: 'linear-gradient(135deg,#6c63ff,#00d4aa)', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '2rem', marginBottom: '1.5rem', boxShadow: '0 0 30px rgba(108,99,255,0.3)' }}>
+              PS
             </div>
-        </section>
-    );
-};
 
-export default About;
+            <h3 style={{ fontSize: '1.4rem', fontWeight: 700, marginBottom: '1rem', color: '#f0f0f8' }}>
+              Robotics & Automation Engineer
+            </h3>
+
+            <p style={{ color: '#9999bb', lineHeight: 1.8, marginBottom: '1rem' }}>
+              I&apos;m a final-year B.Tech Robotics & Automation student at Symbiosis Institute of Technology, Pune, with hands-on experience spanning industrial automation, AI-driven systems, computer vision, and simulation engineering.
+            </p>
+
+            <p style={{ color: '#9999bb', lineHeight: 1.8, marginBottom: '1rem' }}>
+              Currently working as a Graduate Trainee Engineer at <strong style={{ color: '#f0f0f8' }}>Bajaj Auto Ltd.</strong> (M&AT Division), where I engineer CAD analyzer agents using LLMs, program industrial robots, and build digital twin simulations for virtual commissioning.
+            </p>
+
+            <p style={{ color: '#9999bb', lineHeight: 1.8, marginBottom: '2rem' }}>
+              Previously served as Team Captain of <strong style={{ color: '#f0f0f8' }}>Wrench Wielders Racing</strong>, leading 25+ members to a Top 15 finish at SUPRA SAE India 2025 out of 75+ teams.
+            </p>
+
+            {/* Stats */}
+            <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1rem' }}>
+              {[
+                { num: '3+', label: 'Years Experience' },
+                { num: 'Top 15', label: 'SUPRA SAE 2025' },
+                { num: '4+', label: 'Major Projects' },
+                { num: '5+', label: 'Tech Domains' },
+              ].map(s => (
+                <div key={s.label} style={{ padding: '1rem', background: 'var(--bg-card)', borderRadius: '10px', border: '1px solid var(--border)', textAlign: 'center' }}>
+                  <div style={{ fontSize: '1.6rem', fontWeight: 800, background: 'linear-gradient(135deg,#6c63ff,#00d4aa)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent' }}>{s.num}</div>
+                  <div style={{ fontSize: '0.8rem', color: '#7777aa', marginTop: '0.2rem' }}>{s.label}</div>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          {/* Right - Expertise Grid */}
+          <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1rem' }}>
+            {items.map(item => (
+              <div key={item.label} style={{ padding: '1.2rem', background: 'var(--bg-card)', borderRadius: '12px', border: '1px solid var(--border)', transition: 'border-color 0.2s, transform 0.2s' }}
+                onMouseEnter={e => { e.currentTarget.style.borderColor='rgba(108,99,255,0.5)'; e.currentTarget.style.transform='translateY(-2px)' }}
+                onMouseLeave={e => { e.currentTarget.style.borderColor='var(--border)'; e.currentTarget.style.transform='none' }}>
+                <div style={{ fontSize: '1.8rem', marginBottom: '0.5rem' }}>{item.icon}</div>
+                <div style={{ fontWeight: 600, fontSize: '0.9rem', color: '#f0f0f8', marginBottom: '0.3rem' }}>{item.label}</div>
+                <div style={{ fontSize: '0.8rem', color: '#7777aa', lineHeight: 1.5 }}>{item.desc}</div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+
+      <style>{`@media(max-width:768px){#about .section-container > div{grid-template-columns:1fr!important;gap:2rem!important}}`}</style>
+    </section>
+  )
+}
