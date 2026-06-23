@@ -19,7 +19,7 @@ export default function Hero() {
   }, []);
 
   return (
-    <section id='hero' style={{
+    <section id='hero' style={{h
       minHeight: '100vh', display: 'flex', alignItems: 'center',
       background: '#0D1117', position: 'relative', overflow: 'hidden',
       paddingTop: '80px',
@@ -128,7 +128,7 @@ export default function Hero() {
             Get In Touch
           </button>
                     <a
-                                  href='https://drive.google.com/file/d/1-fo8A_8_YvF1nAtbSOSmWDUU3l9j91jA/view'
+                                  href='mailto:paarth.srivastava777@gmail.com?subject=Resume%20Request&body=Hi%20Paarth%2C%20I%20would%20like%20to%20receive%20your%20resume.'
                                   target='_blank' rel='noreferrer'
                                   style={{
                                                   background: 'transparent', color: '#3FB950', border: '1px solid rgba(63,185,80,0.35)',
@@ -152,7 +152,7 @@ export default function Hero() {
         }}>
           {[
             { href: 'https://github.com/PaarthSuwi', label: 'GitHub' },
-            { href: 'https://linkedin.com/in/paarth-srivastava', label: 'LinkedIn' },
+            { href: 'https://linkedin.com/in/paarth-srivastava-65806623b', label: 'LinkedIn' },
             { href: 'mailto:paarth.srivastava777@gmail.com', label: 'paarth.srivastava777@gmail.com' },
           ].map(link => (
             <a key={link.href} href={link.href} target='_blank' rel='noreferrer'
