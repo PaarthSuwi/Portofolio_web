@@ -127,6 +127,21 @@ export default function Hero() {
           >
             Get In Touch
           </button>
+                    <a
+                                  href='https://drive.google.com/file/d/1-fo8A_8_YvF1nAtbSOSmWDUU3l9j91jA/view'
+                                  target='_blank' rel='noreferrer'
+                                  style={{
+                                                  background: 'transparent', color: '#3FB950', border: '1px solid rgba(63,185,80,0.35)',
+                                                  fontFamily: 'Inter, sans-serif', fontSize: '0.875rem', fontWeight: 500,
+                                                  padding: '0.65rem 1.4rem', borderRadius: '6px', cursor: 'pointer',
+                                                  textDecoration: 'none', display: 'inline-flex', alignItems: 'center', gap: '0.4rem',
+                                                  transition: 'border-color 0.2s ease, background 0.2s ease',
+                                  }}
+                                  onMouseEnter={e => { e.currentTarget.style.borderColor = '#3FB950'; e.currentTarget.style.background = 'rgba(63,185,80,0.06)'; }}
+                                  onMouseLeave={e => { e.currentTarget.style.borderColor = 'rgba(63,185,80,0.35)'; e.currentTarget.style.background = 'transparent'; }}
+                                >
+                                &#8595; Resume
+                    </a>
         </div>
 
         {/* Social links */}
