@@ -11,7 +11,7 @@ function useInView(threshold = 0.15) {
   return [ref, inView];
 }
 
-const expertise = [h
+const expertise = [
   { label: 'Industrial Robotics', desc: 'FANUC & MELFA programming, workcell integration, PLC interfacing' },
   { label: 'Computer Vision', desc: 'MediaPipe, OpenCV, real-time perception pipelines' },
   { label: 'ROS2 & Simulation', desc: 'Robot operating system, Gazebo, digital twin environments' },
@@ -21,7 +21,7 @@ const expertise = [h
 ];
 
 const stats = [
-  { value: '1+', label: 'Years Experience' },h
+  { value: '1+', label: 'Years Experience' },
   { value: '6+', label: 'Projects Shipped' },
   { value: 'Top 10', label: 'Formula Bharat 2025' },
   { value: 'Top 15', label: 'SUPRA SAE India 2025' },
