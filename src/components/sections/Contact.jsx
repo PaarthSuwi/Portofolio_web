@@ -13,9 +13,9 @@ function useInView(threshold = 0.1) {
 
 const contacts = [
   { label: 'Email', value: 'paarth.srivastava777@gmail.com', href: 'mailto:paarth.srivastava777@gmail.com' },
-  { label: 'LinkedIn', value: 'linkedin.com/in/paarth-srivastava', href: 'https://linkedin.com/in/paarth-srivastava' },
+  { label: 'LinkedIn', value: 'linkedin.com/in/paarth-srivastava-65806623b', href: 'https://linkedin.com/in/paarth-srivastava-65806623b' },
   { label: 'GitHub', value: 'github.com/PaarthSuwi', href: 'https://github.com/PaarthSuwi' },
-  { label: 'Phone', value: '+91 90829 42788', href: 'tel:+919082942788' },
+  { label: 'Phone', value: 'Email for number', href: 'mailto:paarth.srivastava777@gmail.com?subject=Contact%20Number%20Request&body=Hi%20Paarth%2C%20could%20you%20share%20your%20contact%20number%3F' },
 ];
 
 export default function Contact() {
