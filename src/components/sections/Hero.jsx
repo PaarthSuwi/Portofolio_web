@@ -19,7 +19,7 @@ export default function Hero() {
   }, []);
 
   return (
-    <section id='hero' style={{h
+    <section id='hero' style={{
       minHeight: '100vh', display: 'flex', alignItems: 'center',
       background: '#0D1117', position: 'relative', overflow: 'hidden',
       paddingTop: '80px',
